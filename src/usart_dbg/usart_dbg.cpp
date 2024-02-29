@@ -1,6 +1,7 @@
 #include "usart_dbg.h"
 #include <cstdint>
-//#include <mcal.h>
+#include <mcal_usart.h>
+
 //#include <util/setbaud.h>
 
 
@@ -9,8 +10,8 @@
 
 void utils::UsartDbg::usart_dbg_init()
 {
- 
-}
+  mu.init(9600);
+};
 
 
 
@@ -18,32 +19,65 @@ void utils::UsartDbg::usart_dbg_step()
 {
   if (!this->_ring_buffer_empty())
   {
-    if (this->_usart_buffer_empty())
-    {
-        this->_usart_transmit_byte(this->_ring_buffer_out());
-    }
+       this->usart_transmit_byte(this->_ring_buffer_out());
   }
 };
 
-void utils::UsartDbg::print_ascii(uint8_t data)
+void utils::UsartDbg::print_ascii(std::uint8_t data)
 {
     this->_ring_buffer_in(data);
-}
+};
 
-void utils::UsartDbg::_ring_buffer_in(std::uint8_t data){
-    if (this->_n<this->buffer_size)
+void utils::UsartDbg::_ring_buffer_in(std::uint8_t data)
     {
-        this->_send_buffer[_pos_in]=data;
-        if (_pos_in< UINT8_MAX)
+        if (_n<buffer_size)
         {
-            this->_pos_in++;
+            _send_buffer[_pos_in]=data;
+            if (_pos_in< UINT8_MAX)
+            {
+                _pos_in++;
+            }
+            else
+            {
+                _pos_in=0;
+            }
+            this->_n++;
         }
-        else
-        {
-            _pos_in=0;
-        }
-        this->_n++;
     }
 
-
+std::uint8_t utils::UsartDbg::_ring_buffer_out()
+{
+    std::uint8_t out;
+    if (_n>0)
+    {
+        out=_pos_out;
+        if (_pos_out< UINT8_MAX)
+            {
+                _pos_out++;
+            }
+            else
+            {
+                _pos_out=0;
+            }
+        return _send_buffer[out];
+    }
+    else
+    {
+        return 0; // should not happen
+    }
 }
+
+bool utils::UsartDbg::_ring_buffer_empty()
+    {
+        return _n==0;
+    }
+
+void utils::UsartDbg::usart_transmit_byte(std::uint8_t data)
+    {
+        mu.transmit_byte_no_blocking(data);
+    }
+ 
+bool utils::UsartDbg::_usart_buffer_empty()
+    {
+        return mu.buffer_is_empty();
+    }

@@ -1,7 +1,10 @@
+#ifndef USART_DBG
+  #define USART_DBG
+
 
 #include <cstdint>
 #include <array>
-#include <mcal.h>
+#include <mcal_usart.h>
 #include <cstring>
 
 #ifndef BAUD                          
@@ -23,8 +26,9 @@ namespace utils{
         std::uint8_t _ring_buffer_out();
         bool _ring_buffer_empty();
 
-        void _usart_transmit_byte(std::uint8_t);
+
         bool _usart_buffer_empty();
+        mcal::us::McalUsart mu;
 
 
 
@@ -32,16 +36,18 @@ namespace utils{
 
     public:
         UsartDbg()
-       {
+        {
             _pos_in=0;
-            //this->_pos_out=0;
-            //this->_n=0;
+            _pos_out=0;
+            _n=0;
         }
  
         template <typename T> void print_decimal(T value);
         void print_text(const char text[]);
-        void print_ascii(uint8_t value);
+        void print_ascii(std::uint8_t value);
         void usart_dbg_step();
-        void usart_dbg_init();       
+        void usart_dbg_init();
+        void usart_transmit_byte(std::uint8_t);     
     };
 }
+#endif // USART_DBG
