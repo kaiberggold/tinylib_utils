@@ -12,11 +12,11 @@
 #endif
 
 namespace utils{
-
     class UsartDbg
     {
     private:
-        constexpr static  std::uint8_t buffer_size =255;
+        std::uint16_t baud_rate;
+        constexpr static std::uint8_t buffer_size =255;
         std::array<std::uint8_t, buffer_size> _send_buffer;
         std::uint8_t _pos_in;
         std::uint8_t _pos_out;
@@ -26,13 +26,8 @@ namespace utils{
         std::uint8_t _ring_buffer_out();
         bool _ring_buffer_empty();
 
-
         bool _usart_buffer_empty();
         mcal::us::McalUsart mu;
-
-
-
-        
 
     public:
         UsartDbg()
@@ -40,6 +35,7 @@ namespace utils{
             _pos_in=0;
             _pos_out=0;
             _n=0;
+            //this->usart_dbg_init();
         }
  
         template <typename T> void print_decimal(T value);
