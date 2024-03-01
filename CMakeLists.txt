@@ -1,10 +1,8 @@
 set( sources
-    src/usart_dbg/usart_dbg.cpp 
-    src/usart_dbg/digital_out.cpp
-    src/usart_dbg/digital_port.cpp
-    include/usart_dbg.h
-    include/digital_out.h
-    include/digital_port.h
+    src/usart_dbg.cpp 
+    src/digital_port.h
+    src/usart_dbg.h
+    src/digital_port.h
     )
 
 
