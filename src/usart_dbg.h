@@ -24,7 +24,7 @@ namespace utils{
         bool _ring_buffer_empty();
 
         bool _usart_buffer_empty();
-        mcal::us::McalUsart mu;
+        hal::McalUsart mu;
 
     public:
         UsartDbg(std::uint32_t baud_rate)
