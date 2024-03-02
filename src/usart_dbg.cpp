@@ -8,7 +8,7 @@
 
 
 
-void utils::UsartDbg::usart_dbg_init()
+void utils::UsartDbg::usart_dbg_init(std::uint32_t baud_rate)
 {
   mu.init(baud_rate);
 };

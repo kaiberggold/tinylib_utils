@@ -4,13 +4,10 @@
 
 #include <cstdint>
 #include <array>
-#include <mcal_usart.h>
+#include "mcal_usart.h"
 #include <cstring>
 
-#ifndef BAUD                          
-#define BAUD  9600                    
-#endif
-
+#
 namespace utils{
     class UsartDbg
     {
@@ -30,19 +27,19 @@ namespace utils{
         mcal::us::McalUsart mu;
 
     public:
-        UsartDbg()
+        UsartDbg(std::uint32_t baud_rate)
         {
             _pos_in=0;
             _pos_out=0;
             _n=0;
-            //this->usart_dbg_init();
+            this->usart_dbg_init(baud_rate);
         }
  
         template <typename T> void print_decimal(T value);
         void print_text(const char text[]);
         void print_ascii(std::uint8_t value);
         void usart_dbg_step();
-        void usart_dbg_init();
+        void usart_dbg_init(std::uint32_t baud_rate);
         void usart_transmit_byte(std::uint8_t);     
     };
 }
