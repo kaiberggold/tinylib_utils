@@ -9,11 +9,11 @@ namespace utils
     {
         static void set_port(reg_t val)
         {
-            hal::McalDigitalPort<addr_t,reg_t,port_idx>::set_port(val);
+            hal::McalDigitalPort<addr_t,reg_t,port_idx>::set_reg(val);
         }       
         static void get_port(reg_t val)
         {
-            hal::McalDigitalPort<addr_t,reg_t,port_idx>::get_port(val);
+            hal::McalDigitalPort<addr_t,reg_t,port_idx>::get_reg(val);
         }
         static void set_to_out_mask(reg_t val)
         {
