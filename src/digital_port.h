@@ -1,3 +1,5 @@
+#ifndef DIGITAL_PORT
+#define DIGITAL_PORT
 #include <cstdint>
 #include <mcal.h>
 
@@ -21,3 +23,5 @@ namespace utils
   };
 
 } // namespace utils
+
+#endif
