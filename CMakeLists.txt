@@ -1,8 +1,10 @@
 set( sources
     src/usart_dbg.cpp 
     src/digital_port.h
+    src/digital_pin.h
     src/usart_dbg.h
     src/digital_port.h
+    src/circular_buffer.h
     )
 
 
