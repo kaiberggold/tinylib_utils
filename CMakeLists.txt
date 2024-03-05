@@ -9,7 +9,7 @@ set( sources
 
 
 cmake_print_variables(sources)
-
+include_directories ("../tinylib_hal/src/${HAL_PATH}")
 add_avr_library (usart ${sources})
 target_include_directories (usart PUBLIC include)
 target_include_directories (usart PUBLIC src)
