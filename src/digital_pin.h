@@ -1,8 +1,7 @@
 #ifndef DIGITAL_PIN
 #define DIGITAL_PIN
 #include <cstdint>
-// #include <mcal.h>
-#include "digital_pin.h"
+#include <hal.h>
 namespace utils
 {
     template <typename addr_t, typename reg_t, const std::uint8_t port_idx, std::uint8_t pin>

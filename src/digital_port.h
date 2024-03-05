@@ -1,7 +1,7 @@
 #ifndef DIGITAL_PORT
 #define DIGITAL_PORT
 #include <cstdint>
-#include <mcal.h>
+#include <hal.h>
 
 namespace utils
 {
@@ -10,15 +10,15 @@ namespace utils
   {
     static void set_port(reg_t val)
     {
-      hal::McalDigitalPort<addr_t, reg_t, port_idx>::set_reg(val);
+      hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_reg(val);
     }
     static void get_port(reg_t val)
     {
-      hal::McalDigitalPort<addr_t, reg_t, port_idx>::get_reg(val);
+      hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_reg(val);
     }
     static void set_to_out_mask(reg_t val)
     {
-      hal::McalDigitalPort<addr_t, reg_t, port_idx>::set_to_out_mask(val);
+      hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_to_out_mask(val);
     }
   };
 

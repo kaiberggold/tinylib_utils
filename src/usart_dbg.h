@@ -1,7 +1,7 @@
 #ifndef USART_DBG
 #define USART_DBG
 
-#include "mcal_usart.h"
+#include "hal_usart.h"
 #include <array>
 #include <cstdint>
 #include <cstring>
@@ -24,7 +24,7 @@ namespace utils
     bool _ring_buffer_empty();
 
     bool _usart_buffer_empty();
-    hal::McalUsart mu;
+    hal::HalUsart mu;
 
   public:
     UsartDbg(std::uint32_t baud_rate)
