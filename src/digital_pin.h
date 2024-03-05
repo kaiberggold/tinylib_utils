@@ -16,7 +16,7 @@ namespace utils
         // {
         //     hal::McalDigitalPort<addr_t, reg_t, port_idx>::get_reg(val);
         // }
-        static v set_to_out_pin(pin)
+        static void set_to_out_pin(pin)
         {
             hal::McalDigitalPort<addr_t, reg_t, port_idx>::set_to_out_mask(val);
         }
