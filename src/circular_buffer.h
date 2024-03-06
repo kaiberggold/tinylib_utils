@@ -1,8 +1,6 @@
 #ifndef CIRCULAR_BUFFER
 #define CIRCULAR_BUFFER
 
-#ifndef USART_DBG
-#define USART_DBG
 #include <array>
 #include <cstdint>
 #include <cstring>
@@ -67,6 +65,4 @@ namespace utils
     };
     // class
 } // namespace utils
-#endif // USART_DBG
-
-#endif
+#endif // CIRCULAR_BUFFER
