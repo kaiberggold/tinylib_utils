@@ -10,7 +10,7 @@ namespace utils
   {
     static void set_port(reg_t val)
     {
-      hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_reg(val);
+      hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_set(val);
     }
 
     static void port_or(reg_t val)

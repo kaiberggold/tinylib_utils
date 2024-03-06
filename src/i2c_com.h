@@ -1,15 +1,17 @@
 #ifndef USART_I2C
 #define USART_I2C
 #include <cstdint>
+#include <hal.h>
 
 namespace utils
 {
-    template <typename addr_t, typename reg_t, const std::uint8_t idx>
-    class i2cCom
+    template <typename addr_t, typename reg_t, const std::uint32_t freq, const std::uint8_t bus_idx>
+    class I2cCom
     {
-        void i2c_com_init()
+    public:
+        void init()
         {
-            hal::HalI2CCom<addr_ty, reg_t, idx>::init();
+            hal::HalI2CCom<addr_t, reg_t, freq, bus_idx>::init();
         }
     };
 }
