@@ -5,6 +5,7 @@ set( sources
     src/usart_dbg.h
     src/digital_port.h
     src/circular_buffer.h
+    src/i2c_com.h
     )
 
 
