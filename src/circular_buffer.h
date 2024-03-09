@@ -18,6 +18,12 @@ namespace utils
         std::uint8_t _n;
 
     public:
+        CircularBuffer()
+        {
+            _pos_in = 0;
+            _pos_out = 0;
+            _n = 0;
+        }
         void buffer_in(T data)
         {
             if (_n < buffer_size)
