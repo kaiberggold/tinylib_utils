@@ -29,14 +29,14 @@ namespace utils
         }
         // template <typename T, std::uint8_t buffer_size>
 
-        void data_set_init()
+        void send_init()
         {
             this->_data_counter_pos = this->_pos_in;
             // establish the data counter in the buffer
             this->buffer_in(0);
         }
 
-        void data_set_append(std::uint8_t data)
+        void send_append(std::uint8_t data)
         {
             this->_send_buffer[this->_data_counter_pos]++;
             this->buffer_in(data);
@@ -56,7 +56,37 @@ namespace utils
         void send(std::uint8_t data)
         {
             _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(send)));
-            _i2c_buffer.data_set_append(data);
+            _i2c_buffer.send_append(data);
+        }
+        void start()
+        {
+            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(start)));
+        }
+
+        void stop()
+        {
+            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(stop)));
+        }
+        void transmit()
+        {
+            ;
+        }
+
+        void flush_blocking()
+        {
+            while (!_i2c_buffer.buffer_empty())
+            {
+                this->transmit();
+                while (transmission_active())
+                {
+                    // wait;
+                }
+            }
+        }
+
+        bool transmission_active()
+        {
+            return hal::HalI2CCom<addr_t, reg_t, freq, bus_idx>::transmission_active();
         }
     };
 }
