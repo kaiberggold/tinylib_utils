@@ -6,6 +6,7 @@ set( sources
     src/digital_port.h
     src/circular_buffer.h
     src/i2c_com.h
+    src/mp44xx.h
     )
 
 

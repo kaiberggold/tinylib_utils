@@ -19,28 +19,12 @@ namespace utils
     class I2cCircularBuffer : public CircularBuffer<std ::uint8_t, buffer_size>
     {
     private:
-        std ::uint8_t _data_counter_pos;
-
     public:
         // derived(T v) : base<T>{v} {}
         I2cCircularBuffer() : CircularBuffer<T, buffer_size>()
         {
-            _data_counter_pos = 0;
         }
         // template <typename T, std::uint8_t buffer_size>
-
-        void send_init()
-        {
-            this->_data_counter_pos = this->_pos_in;
-            // establish the data counter in the buffer
-            this->buffer_in(0);
-        }
-
-        void send_append(std::uint8_t data)
-        {
-            this->_send_buffer[this->_data_counter_pos]++;
-            this->buffer_in(data);
-        }
     };
 
     template <typename addr_t, typename reg_t, const std::uint32_t freq, const std::uint8_t bus_idx>
@@ -56,7 +40,7 @@ namespace utils
         void send(std::uint8_t data)
         {
             _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(send)));
-            _i2c_buffer.send_append(data);
+            _i2c_buffer.buffer_in(data);
         }
         void start()
         {
@@ -69,7 +53,24 @@ namespace utils
         }
         void transmit()
         {
-            ;
+            if (!_i2c_buffer.buffer_empty())
+            {
+                i2cCommand c = _i2c_buffer.buffer_out();
+                switch (c)
+                {
+                case start:
+                    start();
+                    break;
+                case stop:
+                    stop();
+                    break;
+                case send:
+                    send();
+                    break;
+                default:
+                    break;
+                }
+            }
         }
 
         void flush_blocking()
