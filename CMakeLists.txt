@@ -3,7 +3,7 @@ set( sources
     src/digital_port.h
     src/digital_pin.h
     src/usart_dbg.h
-    src/digital_port.h
+    src/digi_poti.h
     src/circular_buffer.h
     src/i2c_com.h
     src/mp44xx.h

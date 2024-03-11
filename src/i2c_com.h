@@ -7,11 +7,11 @@
 namespace utils
 {
 
-    enum i2cCommand
+    enum class i2cCommand
     {
         start,
         stop,
-        send,
+        send_e,
         read_ack,
         read_no_ack
     };
@@ -24,22 +24,29 @@ namespace utils
         I2cCircularBuffer() : CircularBuffer<T, buffer_size>()
         {
         }
+
         // template <typename T, std::uint8_t buffer_size>
     };
 
-    template <typename addr_t, typename reg_t, const std::uint32_t freq, const std::uint8_t bus_idx>
+    template <typename addr_t, typename reg_t, reg_t bus_idx>
     class I2cCom
     {
         I2cCircularBuffer<std::uint8_t, 255> _i2c_buffer;
+        std::uint32_t _freq;
+        // const reg_t _bus_idx;
 
     public:
+        constexpr I2cCom(std::uint32_t f) : _freq(f)
+        {
+        }
+        // I2cCom() {}
         void init()
         {
-            hal::HalI2CCom<addr_t, reg_t, freq, bus_idx>::init();
+            hal::HalI2CCom<addr_t, reg_t, bus_idx>::init(_freq);
         }
         void send(std::uint8_t data)
         {
-            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(send)));
+            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(utils::i2cCommand::send_e)));
             _i2c_buffer.buffer_in(data);
         }
         void start()
@@ -87,7 +94,7 @@ namespace utils
 
         bool transmission_active()
         {
-            return hal::HalI2CCom<addr_t, reg_t, freq, bus_idx>::transmission_active();
+            return hal::HalI2CCom<addr_t, reg_t, bus_idx>::transmission_active();
         }
     };
 }

@@ -6,39 +6,27 @@
 namespace utils
 {
     // Forward declaration
-    template <typename addr_t, typename reg_t, const std::uint32_t freq, const std::uint8_t bus_idx>
-    class I2cCom;
 
-    template <const std::uint8_t address, const std::uint8_t chip_select>
-    class Mp44xx
+    template <typename addr_t, typename reg_t, reg_t bus_idx>
+    class PotiIc
     {
     private:
-        utils::I2cCom<std::uint8_t, std::uint8_t, /* provide i2c_freq and bus_idx here */> *_i2c;
+        utils::I2cCom<addr_t, reg_t, bus_idx> _i2c;
+        addr_t _address;
+        addr_t _chip_select;
 
     public:
-        // Constructor
-        Mp44xx(utils::I2cCom<std::uint8_t, std::uint8_t, /* provide i2c_freq and bus_idx here */> *i2c) : _i2c(i2c)
+        PotiIc(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx> i) : _address(a), _chip_select(c), _i2c(i)
         {
             // Constructor body
         }
+
+        void set_val_volatile(reg_t poti_id)
+        {
+            _i2c.send(1);
+        }
     };
 
-    // template <typename addr_t, typename reg_t, const std::uint32_t freq, const std::uint8_t bus_idx, const reg_t address, const reg_t chip_select>
-    // class Mp44xx
-    // {
-    // private:
-    //     utils::I2cCom<addr_t, reg_t, freq, bus_idx> *_i2c;
-
-    // public:
-    //     Mp44xx(auto *i2c) : _i2c(i2c){
-
-    //                         };
-
-    //     void set_val_volatile(reg_t poti_id)
-    //     {
-    //         _i2c->send(address);
-    //     }
-    // };
 } // namespace utils
 
 #endif
