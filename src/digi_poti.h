@@ -17,9 +17,9 @@ namespace utils
             return 127;
         }
 
-        void set_volatile(reg_t val)
+        void set_volatile(std::uint16_t val)
         {
-            _poti_ic.set_val_volatile(_poti_idx);
+            _poti_ic.set_val_volatile(_poti_idx, val);
         }
     }; // namespace utils
 }
