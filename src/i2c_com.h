@@ -9,11 +9,11 @@ namespace utils
 
     enum class i2cCommand
     {
-        start,
-        stop,
+        start_e,
+        stop_e,
         send_e,
-        read_ack,
-        read_no_ack
+        read_ack_e,
+        read_no_ack_e
     };
     template <typename T, std::uint8_t buffer_size>
     class I2cCircularBuffer : public CircularBuffer<std ::uint8_t, buffer_size>
@@ -51,28 +51,28 @@ namespace utils
         }
         void start()
         {
-            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(start)));
+            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(utils::i2cCommand::start_e)));
         }
 
         void stop()
         {
-            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(stop)));
+            _i2c_buffer.buffer_in(static_cast<std::uint8_t>(i2cCommand(utils::i2cCommand::stop_e)));
         }
         void transmit()
         {
             if (!_i2c_buffer.buffer_empty())
             {
-                i2cCommand c = _i2c_buffer.buffer_out();
+                i2cCommand c = static_cast<i2cCommand>(_i2c_buffer.buffer_out());
                 switch (c)
                 {
-                case start:
+                case utils::i2cCommand::start_e:
                     start();
                     break;
-                case stop:
+                case utils::i2cCommand::stop_e:
                     stop();
                     break;
-                case send:
-                    send();
+                case utils::i2cCommand::send_e:
+                    // send();
                     break;
                 default:
                     break;
