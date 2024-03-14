@@ -6,7 +6,7 @@
 
 namespace utils
 {
-
+    typedef void (*CallbackFunction)();
     enum class i2cCommand
     {
         start_e,
@@ -32,6 +32,7 @@ namespace utils
     class I2cCom
     {
         I2cCircularBuffer<std::uint8_t, 255> _i2c_buffer;
+        CircularBuffer<CallbackFunction, 10> _call_back_puffer;
         std::uint32_t _freq;
         // const reg_t _bus_idx;
 
