@@ -6,21 +6,19 @@
 #include "i2c_com.h"
 namespace utils
 {
-    // Forward declaration
-
     template <typename addr_t, typename reg_t, reg_t bus_idx>
     class PotiIc
     {
     private:
-        utils::I2cCom<addr_t, reg_t, bus_idx> _i2c;
+        utils::I2cCom<addr_t, reg_t, bus_idx> *_i2c;
         addr_t _address;
         addr_t _chip_select;
         const std::array<reg_t, 4> vol_wiper = {0x00, 0x01, 0x06, 0x07};
-        const reg_t fixed_addr = 0b01011000;
+        // const reg_t fixed_addr = 0b01011000;
 
     public:
-        PotiIc(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx> i) : _address(a),
-                                                                              _chip_select(c), _i2c(i)
+        PotiIc(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx> *i) : _address(a),
+                                                                               _chip_select(c), _i2c(i)
         {
             ;
         }
@@ -33,14 +31,14 @@ namespace utils
             // 0brrrrccx8
             // byte_2, remaining data bytes
             // 0b76543210
-            reg_t byte_0 = fixed_addr | (_chip_select & 0x03) << 1;
+            reg_t byte_0 = _address | (_chip_select & 0x03) << 1;
             reg_t byte_1 = (vol_wiper[poti_id] << 4) | static_cast<reg_t>(((value >> 8) & 0x01));
             reg_t byte_2 = static_cast<reg_t>(value);
-            _i2c.start();
-            _i2c.send(byte_0);
-            _i2c.send(byte_1);
-            _i2c.send(byte_2);
-            _i2c.stop();
+            _i2c->start();
+            _i2c->send(byte_0);
+            _i2c->send(byte_1);
+            _i2c->send(byte_2);
+            _i2c->stop();
         }
     };
 

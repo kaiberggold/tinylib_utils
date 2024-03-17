@@ -67,13 +67,13 @@ namespace utils
                 switch (c)
                 {
                 case utils::i2cCommand::start_e:
-                    start();
+                    hal::HalI2CCom<addr_t, reg_t, bus_idx>::start();
                     break;
                 case utils::i2cCommand::stop_e:
-                    stop();
+                    hal::HalI2CCom<addr_t, reg_t, bus_idx>::stop();
                     break;
                 case utils::i2cCommand::send_e:
-                    // send();
+                    hal::HalI2CCom<addr_t, reg_t, bus_idx>::send(_i2c_buffer.buffer_out());
                     break;
                 default:
                     break;
