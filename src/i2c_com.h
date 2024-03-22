@@ -3,7 +3,8 @@
 #include <cstdint>
 #include <hal.h>
 #include "circular_buffer.h"
-
+#include <avr/io.h>
+#include <util/delay.h>
 namespace utils
 {
     typedef void (*CallbackFunction)();

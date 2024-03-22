@@ -29,7 +29,7 @@ namespace utils
             if (_n < buffer_size)
             {
                 _send_buffer[_pos_in] = data;
-                if (_pos_in < UINT8_MAX)
+                if (_pos_in < buffer_size - 1)
                 {
                     _pos_in++;
                 }
@@ -47,7 +47,7 @@ namespace utils
             if (_n > 0)
             {
                 out = _pos_out;
-                if (_pos_out < UINT8_MAX)
+                if (_pos_out < buffer_size - 1)
                 {
                     _pos_out++;
                 }
