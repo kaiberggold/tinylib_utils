@@ -2,7 +2,7 @@
 #define DIGITAL_POTI_IC
 #include <cstdint>
 #include <array>
-#include <hal.h>
+// #include <hal.h>
 #include "i2c_com.h"
 namespace utils
 {
@@ -10,9 +10,9 @@ namespace utils
     class PotiIc
     {
     private:
-        utils::I2cCom<addr_t, reg_t, bus_idx> *_i2c;
         addr_t _address;
         addr_t _chip_select;
+        utils::I2cCom<addr_t, reg_t, bus_idx> *_i2c;
         const std::array<reg_t, 4> vol_wiper = {0x00, 0x01, 0x06, 0x07};
         // const reg_t fixed_addr = 0b01011000;
 

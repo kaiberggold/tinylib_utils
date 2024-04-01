@@ -18,6 +18,11 @@ namespace utils
       hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_or(val);
     }
 
+    static void port_and(reg_t val)
+    {
+      hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(val);
+    }
+
     static void get_port(reg_t val)
     {
       hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_reg(val);

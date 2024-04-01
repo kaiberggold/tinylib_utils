@@ -60,13 +60,20 @@ namespace utils
             }
             else
             {
-                return 0; // should not happen
+                return T(); // should not happen
             }
         }
 
         bool buffer_empty()
         {
             return _n == 0;
+        }
+
+        void reset()
+        {
+            _pos_in = 0;
+            _pos_out = 0;
+            _n = 0;
         }
     };
     // class

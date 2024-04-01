@@ -1,7 +1,6 @@
 #ifndef DIGITAL_POTI
 #define DIGITAL_POTI
 #include <cstdint>
-#include <hal.h>
 namespace utils
 {
     template <typename addr_t, typename reg_t, reg_t bus_idx>

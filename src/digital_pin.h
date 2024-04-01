@@ -9,12 +9,16 @@ namespace utils
     {
         static void set_pin(reg_t val)
         {
-            hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_bits(val, pin);
+            if (val)
+            {
+                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_or(1U << pin);
+            }
+            else
+            {
+                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(~(1U << pin));
+            }
         }
-        // static void get_port(reg_t val)
-        // {
-        //     hal::McalDigitalPort<addr_t, reg_t, port_idx>::get_reg(val);
-        // }
+
         static void set_to_out_pin()
         {
             hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_to_out_mask(1U << pin);
