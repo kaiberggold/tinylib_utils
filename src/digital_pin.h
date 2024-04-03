@@ -15,7 +15,7 @@ namespace utils
             }
             else
             {
-                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(~(1U << pin));
+                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(~(static_cast<reg_t>(1U) << pin));
             }
         }
 

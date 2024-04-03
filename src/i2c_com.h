@@ -1,5 +1,5 @@
-#ifndef USART_I2C
-#define USART_I2C
+#ifndef UTILS_I2C_COM
+#define UTILS_I2C_COM
 #include <cstdint>
 #include <hal.h>
 #include "circular_buffer.h"
