@@ -4,24 +4,34 @@
 #include <hal.h>
 namespace utils
 {
-    template <typename addr_t, typename reg_t, const std::uint8_t port_idx, std::uint8_t pin>
+    template <typename addr_t, typename reg_t, const std::uint8_t port_idx, std::uint8_t pin_idx>
     struct DigitalPin
     {
         static void set_pin(reg_t val)
         {
             if (val)
             {
-                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_or(1U << pin);
+                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_or(1U << pin_idx);
             }
             else
             {
-                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(~(static_cast<reg_t>(1U) << pin));
+                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(~(static_cast<reg_t>(1U) << pin_idx));
             }
         }
 
         static void set_to_out_pin()
         {
-            hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_to_out_mask(1U << pin);
+            hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_to_out_mask(1U << pin_idx);
+        }
+
+        constexpr static reg_t get_pin_idx()
+        {
+            return pin_idx;
+        }
+
+        constexpr static reg_t get_port_idx()
+        {
+            return port_idx;
         }
     };
 

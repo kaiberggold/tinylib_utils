@@ -30,18 +30,18 @@ namespace utils
     //     // template <typename T, std::uint8_t buffer_size>
     // };
 
-    template <typename addr_t, typename reg_t, reg_t bus_idx>
+    template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
     class I2cCom
     {
         CircularBuffer<std::uint8_t, 20> _i2c_buffer;
         CircularBuffer<CallbackFunction, 10> _call_back_puffer;
-        std::uint32_t _freq;
         bool _transmission_active;
         // const reg_t _bus_idx;
 
     public:
-        constexpr I2cCom(std::uint32_t f) : _freq(f)
+        constexpr I2cCom()
         {
+            static_assert(freq == 100000 || freq == 400000 || freq == 1000000, "only 100000,400000,1000000 allowed as i2c frequency");
         }
 
         // I2cCom() {}
@@ -52,7 +52,7 @@ namespace utils
         }
         void init()
         {
-            hal::HalI2CCom<addr_t, reg_t, bus_idx>::init(_freq);
+            hal::HalI2CCom<addr_t, reg_t, bus_idx>::init(freq);
             _transmission_active = false;
             //    TWBR = 92;           /* set bit rate, see p. 242 */
             /* 20MHz / (16+2*TWBR*1) ~= 100kHz */

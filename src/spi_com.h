@@ -2,10 +2,11 @@
 #define UTILS_SPI_COM
 #include <cstdint>
 #include <hal.h>
+#include "digital_pin.h"
 
 namespace utils
 {
-    template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint8_t port_idx, reg_t pin_idx, std::uint8_t clock_scaling>
+    template <typename addr_t, typename reg_t, reg_t bus_idx, utils::DigitalPin cs, std::uint8_t clock_scaling>
     class SpiCom
     {
     private:
@@ -15,21 +16,24 @@ namespace utils
             static_assert(clock_scaling == 2 || clock_scaling == 4 || clock_scaling == 8 || clock_scaling == 16 || clock_scaling == 32 || clock_scaling == 64 || clock_scaling == 128, "clock_scaling must be 2, 4, 8, 16, 32, 64, or 128");
         }
 
-        constexpr void init()
+        static constexpr void init()
         {
-            hal::HalSpiCom<addr_t, reg_t, bus_idx, port_idx, pin_idx, clock_scaling>::init();
+            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling>::init();
         }
 
-        void send(std::uint8_t data)
+        static void send(std::uint8_t data)
         {
+            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling>::send(data);
         }
 
-        void start()
+        static reg_t read()
         {
+            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling>::read();
         }
 
-        void stop()
+        static bool transmission_active()
         {
+            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling>::transmission_active();
         }
     };
 }
