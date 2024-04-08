@@ -17,18 +17,6 @@ namespace utils
         read_ack_e,
         read_no_ack_e
     };
-    // template <typename T, std::uint8_t buffer_size>
-    //  class I2cCircularBuffer : public CircularBuffer<std ::uint8_t, buffer_size>
-    //  {
-    //  private:
-    //  public:
-    //      // derived(T v) : base<T>{v} {}
-    //      I2cCircularBuffer() : CircularBuffer<T, buffer_size>()
-    //      {
-    //      }
-
-    //     // template <typename T, std::uint8_t buffer_size>
-    // };
 
     template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
     class I2cCom

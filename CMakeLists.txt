@@ -8,6 +8,7 @@ set( sources
     src/i2c_com.h
     src/spi_com.h
     src/mp44xx.h
+    src/mpc3202.h
     )
 
 

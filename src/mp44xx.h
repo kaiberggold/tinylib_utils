@@ -1,5 +1,5 @@
 #ifndef MP44XX
-#define DIGITAL_POTI_IC
+#define MP44XX
 #include <cstdint>
 #include <array>
 // #include <hal.h>
@@ -11,14 +11,14 @@ namespace utils
     {
     private:
         addr_t _address;
-        addr_t _chip_select;
+        addr_t _chip_select_address;
         utils::I2cCom<addr_t, reg_t, bus_idx, freq> *_i2c;
         const std::array<reg_t, 4> vol_wiper = {0x00, 0x01, 0x06, 0x07};
         // const reg_t fixed_addr = 0b01011000;
 
     public:
         PotiIc(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx, freq> *i) : _address(a),
-                                                                                     _chip_select(c), _i2c(i)
+                                                                                     _chip_select_address(c), _i2c(i)
         {
             ;
         }
@@ -31,7 +31,7 @@ namespace utils
             // 0brrrrccx8
             // byte_2, remaining data bytes
             // 0b76543210
-            reg_t byte_0 = _address | (_chip_select & 0x03) << 1;
+            reg_t byte_0 = _address | (_chip_select_address & 0x03) << 1;
             reg_t byte_1 = (vol_wiper[poti_id] << 4) | static_cast<reg_t>(((value >> 8) & 0x01));
             reg_t byte_2 = static_cast<reg_t>(value);
             _i2c->start();
