@@ -11,59 +11,50 @@ void utils::UsartDbg::usart_dbg_init(std::uint32_t baud_rate)
 
 void utils::UsartDbg::usart_dbg_step()
 {
-  if (!this->_ring_buffer_empty())
+  if (!_send_buffer.buffer_empty() && _usart_buffer_empty())
   {
-    this->usart_transmit_byte(this->_ring_buffer_out());
+    this->usart_transmit_byte(_send_buffer.buffer_out());
+  }
+}
+
+void utils::UsartDbg::usart_dbg_flush()
+{
+  while (!_send_buffer.buffer_empty())
+  {
+    while (!_usart_buffer_empty())
+    {
+      // wait
+    }
+    this->usart_transmit_byte(_send_buffer.buffer_out());
   }
 }
 
 void utils::UsartDbg::print_ascii(std::uint8_t data)
 {
-  this->_ring_buffer_in(data);
+  _send_buffer.buffer_in(data);
 }
 
-void utils::UsartDbg::_ring_buffer_in(std::uint8_t data)
+void utils::UsartDbg::print_hex_byte(std::uint8_t data)
 {
-  if (_n < buffer_size)
+  std::uint8_t high = data >> 4;
+  if (high < 10)
   {
-    _send_buffer[_pos_in] = data;
-    if (_pos_in < UINT8_MAX)
-    {
-      _pos_in++;
-    }
-    else
-    {
-      _pos_in = 0;
-    }
-    _n++;
-  }
-  // no else, just do nothing if buffer is full
-}
-
-std::uint8_t utils::UsartDbg::_ring_buffer_out()
-{
-  std::uint8_t out;
-  if (_n > 0)
-  {
-    out = _pos_out;
-    if (_pos_out < UINT8_MAX)
-    {
-      _pos_out++;
-    }
-    else
-    {
-      _pos_out = 0;
-    }
-    _n--;
-    return _send_buffer[out];
+    _send_buffer.buffer_in(high + '0');
   }
   else
   {
-    return 0; // should not happen
+    _send_buffer.buffer_in(high - 10 + 'A');
+  }
+  std::uint8_t low = data & UINT8_C(0x0F);
+  if (low < 10)
+  {
+    _send_buffer.buffer_in(low + '0');
+  }
+  else
+  {
+    _send_buffer.buffer_in(low - 10 + 'A');
   }
 }
-
-bool utils::UsartDbg::_ring_buffer_empty() { return _n == 0; }
 
 void utils::UsartDbg::usart_transmit_byte(std::uint8_t data)
 {

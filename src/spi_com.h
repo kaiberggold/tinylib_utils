@@ -18,22 +18,22 @@ namespace utils
 
         static constexpr void init()
         {
-            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 1>::init();
+            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::init();
         }
 
         static void send(std::uint8_t data)
         {
-            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 1>::send(data);
+            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::send(data);
         }
 
         static reg_t read()
         {
-            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 1>::read();
+            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::read();
         }
 
         static bool transmission_active()
         {
-            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 1>::transmission_active();
+            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::transmission_active();
         }
     };
 }
