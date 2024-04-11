@@ -8,5 +8,4 @@
 #include "spi_com.h"
 #include "mp44xx.h"
 #include "digi_poti.h"
-
-#endif
+#include "timer.h"
