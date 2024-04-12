@@ -6,11 +6,11 @@ namespace utils
     template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
     class DigiPoti
     {
-        utils::PotiIc<addr_t, reg_t, bus_idx, freq> _poti_ic;
+        utils::Mp44xx<addr_t, reg_t, bus_idx, freq> _poti_ic;
         reg_t _poti_idx;
 
     public:
-        DigiPoti(utils::PotiIc<addr_t, reg_t, bus_idx, freq> p, reg_t i) : _poti_ic(p), _poti_idx(i){};
+        DigiPoti(utils::Mp44xx<addr_t, reg_t, bus_idx, freq> p, reg_t i) : _poti_ic(p), _poti_idx(i){};
         reg_t get_max()
         {
             return 127;

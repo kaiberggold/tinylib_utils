@@ -7,7 +7,7 @@
 namespace utils
 {
     template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
-    class PotiIc
+    class Mp44xx
     {
     private:
         addr_t _address;
@@ -17,7 +17,7 @@ namespace utils
         // const reg_t fixed_addr = 0b01011000;
 
     public:
-        PotiIc(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx, freq> *i) : _address(a),
+        Mp44xx(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx, freq> *i) : _address(a),
                                                                                      _chip_select_address(c), _i2c(i)
         {
             ;
