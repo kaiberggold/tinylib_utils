@@ -10,6 +10,5 @@
 #include "digi_poti.h"
 #include "timer.h"
 #include "interrupts.h"
-#include "timer_if.h"
 
 #endif

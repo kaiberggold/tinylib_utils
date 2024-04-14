@@ -1,6 +1,7 @@
 #ifndef POTI_IC
 #define POTI_IC
 #include <cstdint>
+#include <poti_ic_if.h>
 namespace abc
 {
     template <typename PotiIc, typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
