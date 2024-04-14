@@ -9,7 +9,7 @@ namespace ifc
     public:
         void set_val_volatile(reg_t poti_id, std::uint16_t value)
         {
-            PotiIc::set_val_volatile(reg_t poti_id, value)
+            PotiIc::set_val_volatile(poti_id, value);
         }
     };
 }

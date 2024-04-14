@@ -2,7 +2,7 @@
 #define MP44XX
 #include <cstdint>
 #include <array>
-// #include <hal.h>
+#include <poti_ic_if.h>
 #include "i2c_com.h"
 namespace utils
 {
