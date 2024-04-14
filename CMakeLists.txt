@@ -9,8 +9,9 @@ set( sources
     src/spi_com.h
     src/mp44xx.h
     src/mpc3202.h
-    src/poti_ic.h
-    src/interrupts.h)
+    src/poti_ic_if.h
+    src/interrupts.h
+    src/timer_if.h)
 
 
 cmake_print_variables(sources)
