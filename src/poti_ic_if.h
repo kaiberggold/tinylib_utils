@@ -1,9 +1,9 @@
-#ifndef POTI_IC
-#define POTI_IC
+#ifndef POTI_IC_IF
+#define POTI_IC_IF
 #include <cstdint>
 namespace ifc
 {
-    template <typename PotiIc, typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
+    template <typename PotiIc, typename addr_t, typename reg_t>
     struct PotiIcIf
     {
     public:

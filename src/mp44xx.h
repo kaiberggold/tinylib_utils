@@ -6,19 +6,19 @@
 #include "i2c_com.h"
 namespace utils
 {
-    template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
+    template <typename addr_t, typename reg_t>
     class Mp44xx
     {
     private:
         addr_t _address;
         addr_t _chip_select_address;
-        utils::I2cCom<addr_t, reg_t, bus_idx, freq> *_i2c;
+        utils::I2cCom<addr_t, reg_t> *_i2c;
         const std::array<reg_t, 4> vol_wiper = {0x00, 0x01, 0x06, 0x07};
         // const reg_t fixed_addr = 0b01011000;
 
     public:
-        Mp44xx(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t, bus_idx, freq> *i) : _address(a),
-                                                                                     _chip_select_address(c), _i2c(i)
+        Mp44xx(addr_t a, addr_t c, utils::I2cCom<addr_t, reg_t> *i) : _address(a),
+                                                                      _chip_select_address(c), _i2c(i)
         {
             ;
         }
