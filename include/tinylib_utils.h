@@ -10,6 +10,6 @@
 #include "digi_poti.h"
 #include "timer.h"
 #include "interrupts.h"
-#include "poti_ic.h"
+// #include "poti_ic.h"
 
 #endif

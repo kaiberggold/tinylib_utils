@@ -44,7 +44,7 @@ namespace utils
         const void init()
         {
             // static_assert(freq == 100000 || freq == 400000 || freq == 1000000, "only 100000,400000,1000000 allowed as i2c frequency");
-            hal::HalI2CCom<addr_t, reg_t>::template init<bus_idx, freq>();
+            hal::HalI2CCom<addr_t, reg_t, bus_idx, freq>::init();
             _transmission_active = false;
             //    TWBR = 92;           /* set bit rate, see p. 242 */
             /* 20MHz / (16+2*TWBR*1) ~= 100kHz */
@@ -72,15 +72,15 @@ namespace utils
                 switch (c)
                 {
                 case utils::i2cCommand::start_e:
-                    hal::HalI2CCom<addr_t, reg_t>::start(bus_idx);
+                    hal::HalI2CCom<addr_t, reg_t, bus_idx, freq>::start();
                     _transmission_active = true;
                     break;
                 case utils::i2cCommand::stop_e:
-                    hal::HalI2CCom<addr_t, reg_t>::stop(bus_idx);
+                    hal::HalI2CCom<addr_t, reg_t, bus_idx, freq>::stop();
                     _transmission_active = false;
                     break;
                 case utils::i2cCommand::send_e:
-                    hal::HalI2CCom<addr_t, reg_t>::send(bus_idx, _i2c_buffer.buffer_out());
+                    hal::HalI2CCom<addr_t, reg_t, bus_idx, freq>::send(_i2c_buffer.buffer_out());
                     _transmission_active = true;
                     break;
                 default:
@@ -105,7 +105,7 @@ namespace utils
         bool transmission_active()
         {
             if (_transmission_active)
-                _transmission_active = hal::HalI2CCom<addr_t, reg_t>::transmission_active(this->_bus_idx, this->_freq);
+                _transmission_active = hal::HalI2CCom<addr_t, reg_t, bus_idx, freq>::transmission_active();
             return _transmission_active;
         }
     };

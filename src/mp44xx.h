@@ -17,9 +17,9 @@ namespace utils
         // const reg_t fixed_addr = 0b01011000;
 
     public:
-        Mp44xx(addr_t a, addr_t c, byte_com_t &i) : _address(a),
-                                                    _chip_select_address(c),
-                                                    _byte_com(i)
+        Mp44xx(addr_t a, addr_t c, byte_com_t i) : _address(a),
+                                                   _chip_select_address(c),
+                                                   _byte_com(i)
         {
             ;
         }
@@ -35,11 +35,11 @@ namespace utils
             reg_t byte_0 = _address | (_chip_select_address & 0x03) << 1;
             reg_t byte_1 = (vol_wiper[poti_id] << 4) | static_cast<reg_t>(((value >> 8) & 0x01));
             reg_t byte_2 = static_cast<reg_t>(value);
-            _byte_com.start();
-            _byte_com.send(byte_0);
-            _byte_com.send(byte_1);
-            _byte_com.send(byte_2);
-            _byte_com.stop();
+            _byte_com->start();
+            _byte_com->send(byte_0);
+            _byte_com->send(byte_1);
+            _byte_com->send(byte_2);
+            _byte_com->stop();
         }
     };
 
