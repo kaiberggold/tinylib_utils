@@ -3,14 +3,14 @@
 #include <cstdint>
 namespace utils
 {
-    template <typename addr_t, typename reg_t>
+    template <typename poti_ic_t, typename addr_t, typename reg_t>
     class DigiPoti
     {
-        utils::Mp44xx<addr_t, reg_t> _poti_ic;
+        poti_ic_t _poti_ic;
         reg_t _poti_idx;
 
     public:
-        DigiPoti(utils::Mp44xx<addr_t, reg_t> p, reg_t i) : _poti_ic(p), _poti_idx(i){};
+        DigiPoti(poti_ic_t p, reg_t i) : _poti_ic(p), _poti_idx(i){};
         reg_t get_max()
         {
             return 127;

@@ -18,19 +18,20 @@ namespace utils
         read_no_ack_e
     };
 
-    template <typename addr_t, typename reg_t>
+    template <typename addr_t, typename reg_t, reg_t bus_idx, std::uint32_t freq>
     class I2cCom
     {
     private:
-        reg_t _bus_idx;
-        std::uint32_t _freq;
+        // reg_t _bus_idx;
+        // std::uint32_t _freq;
         CircularBuffer<std::uint8_t, 20> _i2c_buffer;
         CircularBuffer<CallbackFunction, 10> _call_back_puffer;
         bool _transmission_active;
         // const reg_t _bus_idx;
 
     public:
-        I2cCom(const reg_t b, const std::uint32_t f) : _bus_idx(b), _freq(f)
+        // I2cCom(const std::uint32_t f) : _freq(f)
+        I2cCom()
         {
         }
 
@@ -39,7 +40,7 @@ namespace utils
             _i2c_buffer.reset();
         }
 
-        template <reg_t bus_idx, std::uint32_t freq>
+        // template <std::uint32_t freq>
         const void init()
         {
             // static_assert(freq == 100000 || freq == 400000 || freq == 1000000, "only 100000,400000,1000000 allowed as i2c frequency");
@@ -71,15 +72,15 @@ namespace utils
                 switch (c)
                 {
                 case utils::i2cCommand::start_e:
-                    hal::HalI2CCom<addr_t, reg_t>::start(_bus_idx);
+                    hal::HalI2CCom<addr_t, reg_t>::start(bus_idx);
                     _transmission_active = true;
                     break;
                 case utils::i2cCommand::stop_e:
-                    hal::HalI2CCom<addr_t, reg_t>::stop(_bus_idx);
+                    hal::HalI2CCom<addr_t, reg_t>::stop(bus_idx);
                     _transmission_active = false;
                     break;
                 case utils::i2cCommand::send_e:
-                    hal::HalI2CCom<addr_t, reg_t>::send(_bus_idx, _i2c_buffer.buffer_out());
+                    hal::HalI2CCom<addr_t, reg_t>::send(bus_idx, _i2c_buffer.buffer_out());
                     _transmission_active = true;
                     break;
                 default:
