@@ -2,27 +2,47 @@
 #define MPC3202
 #include <cstdint>
 #include <array>
-// #include <hal.h>
-#include "spi_com.h"
 namespace utils
 {
-    template <typename addr_t, typename reg_t, reg_t bus_idx, utils::DigitalPin cs, std::uint8_t clock_scaling>
-    class ADConverterIC
+    template <typename byte_com_static_t, typename addr_t, typename reg_t, typename digital_pin_t>
+    struct Mpc3202
     {
-    private:
-        utils::DigitalPin _chip_select;
-        utils::SpiCom<addr_t, reg_t, bus_idx, cs, clock_scaling> *_spi;
-
     public:
-        ADConverter(addr_t a, addr_t cs, utils::SpiCom<addr_t, reg_t bus_idx, cs, clock_scaling> *i) : _address(a),
-                                                                                                       _chip_select(cs),
-                                                                                                       _spi(i)
+        static std::uint16_t get_raw_value()
         {
-            ;
+            return 0;
         }
 
-        std::uint16_t get_raw_value()
+        static void enable()
         {
+            digital_pin_t::set_pin(false);
+        }
+
+        static void disable()
+        {
+            digital_pin_t::set_pin(true);
+        }
+        template <reg_t step_idx>
+        static void send()
+        {
+            if (step_idx == 0)
+            {
+                byte_com_static_t::send(0x01);
+            }
+            else if (step_idx == 1)
+            {
+                byte_com_static_t::send(0x90);
+            }
+            else
+            {
+                byte_com_static_t::send(0x00);
+            }
+        }
+
+        reg_t
+        read()
+        {
+            return byte_com_static_t::read();
         }
     };
 

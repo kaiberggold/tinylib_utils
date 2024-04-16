@@ -7,6 +7,7 @@
 #include "i2c_com.h"
 #include "spi_com_static.h"
 #include "mp44xx.h"
+#include "mpc3202.h"
 #include "digi_poti.h"
 #include "timer.h"
 #include "interrupts.h"
