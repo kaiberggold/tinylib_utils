@@ -1,6 +1,7 @@
 #ifndef DIGITAL_POTI
 #define DIGITAL_POTI
 #include <cstdint>
+#include <poti_ic_if.h>
 namespace utils
 {
     template <typename poti_ic_t, typename addr_t, typename reg_t>
