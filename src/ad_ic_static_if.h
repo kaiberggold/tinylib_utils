@@ -3,12 +3,13 @@
 #include <cstdint>
 namespace ifc
 {
-    template <typename AdIcStatic, typename addr_t, typename reg_t, reg_t bus_idx, utils::DigitalPin cs, std::uint8_t clock_scaling>
+    template <typename AdIcStatic, typename byte_com_static, typename addr_t, typename reg_t>
     struct AdIcStaticIf
     {
         std::uint16_t get_raw_value()
         {
+            return 0;
         }
-    }
+    };
 }
 #endif

@@ -6,7 +6,7 @@ set( sources
     src/digi_poti.h
     src/circular_buffer.h
     src/i2c_com.h
-    src/spi_com.h
+    src/spi_com_static.h
     src/mp44xx.h
     src/mpc3202.h
     src/poti_ic_if.h
