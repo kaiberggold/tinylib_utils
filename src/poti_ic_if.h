@@ -1,7 +1,7 @@
 #ifndef POTI_IC_IF
 #define POTI_IC_IF
 #include <cstdint>
-namespace utils
+namespace ifs
 {
     template <typename PotiIc, typename byte_com_t, typename addr_t, typename reg_t>
     class PotiIcIf

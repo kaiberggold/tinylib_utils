@@ -3,11 +3,10 @@
 #include <cstdint>
 #include <array>
 #include <poti_ic_if.h>
-#include "i2c_com.h"
 namespace utils
 {
     template <typename byte_com_t, typename addr_t, typename reg_t>
-    class Mp44xx : public utils::PotiIcIf<Mp44xx<byte_com_t, addr_t, reg_t>, byte_com_t, addr_t, reg_t>
+    class Mp44xx : public ifs::PotiIcIf<Mp44xx<byte_com_t, addr_t, reg_t>, byte_com_t, addr_t, reg_t>
     {
 
     private:
@@ -15,7 +14,7 @@ namespace utils
         // const reg_t fixed_addr = 0b01011000;
 
     public:
-        Mp44xx(addr_t a, addr_t c, byte_com_t i) : utils::PotiIcIf<Mp44xx<byte_com_t, addr_t, reg_t>, byte_com_t, addr_t, reg_t>(a, c, i){};
+        Mp44xx(addr_t a, addr_t c, byte_com_t i) : ifs::PotiIcIf<Mp44xx<byte_com_t, addr_t, reg_t>, byte_com_t, addr_t, reg_t>(a, c, i){};
 
         void set_val_volatile_l(reg_t poti_id, std::uint16_t value)
         {
