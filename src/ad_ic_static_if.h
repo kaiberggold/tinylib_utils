@@ -19,7 +19,7 @@ namespace ifc
 
         static reg_t read()
         {
-            AdIcStatic::read();
+            return AdIcStatic::read();
         }
 
         static void enable()
@@ -27,9 +27,14 @@ namespace ifc
             AdIcStatic::enable();
         }
 
-        void disable()
+        static void disable()
         {
             AdIcStatic::disable();
+        }
+
+        static void bus_transmission_wait_blocking()
+        {
+            AdIcStatic::bus_transmission_wait_blocking();
         }
     };
 }

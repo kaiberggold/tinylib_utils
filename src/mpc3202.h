@@ -25,6 +25,7 @@ namespace utils
         template <reg_t step_idx>
         static void send()
         {
+            static_assert(step_idx >= 0 && step_idx <= 3, "step_idx only from 1-3");
             if (step_idx == 0)
             {
                 byte_com_static_t::send(0x01);
@@ -39,10 +40,17 @@ namespace utils
             }
         }
 
-        reg_t
-        read()
+        static reg_t read()
         {
             return byte_com_static_t::read();
+        }
+
+        static void bus_transmission_wait_blocking()
+        {
+            while (byte_com_static_t::transmission_active())
+            {
+                // wait
+            }
         }
     };
 
