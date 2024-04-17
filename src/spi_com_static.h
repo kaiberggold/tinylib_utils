@@ -26,6 +26,19 @@ namespace utils
             SpiCom_t::init();
         }
 
+        static constexpr void enable_interrupt()
+        {
+            SpiCom_t::_enable_interrupt();
+        }
+
+        static constexpr void
+        enable()
+        {
+            digital_pin_t::set_pin(true);
+            digital_pin_t::set_to_out_pin();
+            SpiCom_t::init();
+        }
+
         static constexpr void send(std::uint8_t data)
         {
             SpiCom_t::send(data);
