@@ -1,14 +1,18 @@
-#ifndef UTILS_SPI_COM
-#define UTILS_SPI_COM
+#ifndef SPI_COM_STATIC
+#define SPI_COM_STATIC
 #include <cstdint>
 #include <hal.h>
 #include "digital_pin.h"
 
 namespace utils
 {
-    template <typename addr_t, typename reg_t, reg_t bus_idx, utils::DigitalPin cs, std::uint8_t clock_scaling>
+
+    template <typename addr_t, typename reg_t, reg_t bus_idx, reg_t clock_scaling, reg_t spi_mode, typename digital_pin_t>
+
     struct SpiComStatic
     {
+        using SpiCom_t = hal::HalSpiCom<addr_t, reg_t, bus_idx, clock_scaling, spi_mode, 0>;
+
     public:
         constexpr SpiComStatic()
         {
@@ -17,22 +21,24 @@ namespace utils
 
         static constexpr void init()
         {
-            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::init();
+            digital_pin_t::set_pin(true);
+            digital_pin_t::set_to_out_pin();
+            SpiCom_t::init();
         }
 
         static constexpr void send(std::uint8_t data)
         {
-            hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::send(data);
+            SpiCom_t::send(data);
         }
 
         static reg_t read()
         {
-            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::read();
+            return SpiCom_t::read();
         }
 
         static bool transmission_active()
         {
-            return hal::HalSpiCom<addr_t, reg_t, bus_idx, cs.get_port_idx(), cs.get_pin_idx(), clock_scaling, 0, 0>::transmission_active();
+            return SpiCom_t::transmission_active();
         }
     };
 }

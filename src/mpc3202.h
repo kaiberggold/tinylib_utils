@@ -4,7 +4,7 @@
 #include <array>
 namespace utils
 {
-    template <typename byte_com_static_t, typename addr_t, typename reg_t, typename digital_pin_t>
+    template <typename addr_t, typename reg_t, typename byte_com_static_t, typename digital_pin_t>
     struct Mpc3202
     {
     public:

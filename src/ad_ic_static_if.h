@@ -3,7 +3,7 @@
 #include <cstdint>
 namespace ifc
 {
-    template <typename AdIcStatic, typename byte_com_static, typename addr_t, typename reg_t>
+    template <typename AdIcStatic, typename addr_t, typename reg_t, typename byte_com_static_t, typename digital_pin_t>
     struct AdIcStaticIf
     {
         static std::uint16_t get_raw_value()
