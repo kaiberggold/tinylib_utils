@@ -8,11 +8,11 @@ namespace ifc
     {
         static void init(timer_t start_time)
         {
-            TimerT::init(start_time);
+            TimerT::init_impl(start_time);
         }
         static void irq_reset(timer_t start_time)
         {
-            TimerT::irq_reset(start_time);
+            TimerT::irq_reset_impl(start_time);
         }
     };
 }
