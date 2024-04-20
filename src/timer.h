@@ -15,8 +15,7 @@ namespace utils
         {
         }
 
-        template <typename T = timer_t>
-        static constexpr std::enable_if_t<std::is_same_v<decltype(std::declval<T>().init(std::declval<T>())), void>, void>
+        static constexpr std::enable_if_t<std::is_same_v<decltype(std::declval<timer_t>().init(std::declval<timer_t>())), void>, void>
         init(timer_t start_time)
         {
             hal::TimerT<addr_t, reg_t, timer_t, timer_idx>::init(start_time);
