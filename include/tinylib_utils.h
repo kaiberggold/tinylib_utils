@@ -13,5 +13,7 @@
 #include "interrupts.h"
 #include "poti_ic_if.h"
 #include "ad_ic_static_if.h"
+#include "external_memory_if.h"
+#include "23x512.h"
 
 #endif
