@@ -15,5 +15,6 @@
 #include "ad_ic_static_if.h"
 #include "external_memory_if.h"
 #include "23x512.h"
-
+#include "rotary_decoder_if.h"
+#include "rotary_decoder_static_if.h"
 #endif
