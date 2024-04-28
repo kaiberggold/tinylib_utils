@@ -34,6 +34,21 @@ namespace utils
         {
             hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_xor(1U << pin_idx);
         }
+
+        static constexpr reg_t get_port_idx()
+        {
+            return port_idx;
+        }
+
+        static constexpr reg_t get_pin_idx()
+        {
+            return pin_idx;
+        }
+
+        static reg_t get_pin()
+        {
+            return (hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_reg() >> pin_idx) & 1;
+        }
     };
 
 } // namespace utils
