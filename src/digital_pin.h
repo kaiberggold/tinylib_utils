@@ -11,7 +11,7 @@ namespace utils
         {
             if (val)
             {
-                // hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_or(1U << pin_idx);
+                hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_or(1U << pin_idx);
             }
             else
             {
@@ -32,7 +32,7 @@ namespace utils
 
         static void set_pin_toggle()
         {
-            hal::HalDigitalPort<addr_t, reg_t, port_idx>::set_port(hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_port());
+            hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_xor(1U << pin_idx);
         }
     };
 
