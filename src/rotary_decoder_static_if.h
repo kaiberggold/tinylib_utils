@@ -26,6 +26,12 @@ namespace utils
             Interrupts::enable_pin_change_port<addr_t, reg_t, digital_pin_2_t::get_port_idx()>();
             Interrupts::enable_pin_change_pin<addr_t, reg_t, digital_pin_2_t::get_port_idx() << 3 + digital_pin_2_t::get_pin_idx()>();
         }
+
+        static std::uint8_t get_raw_state()
+        {
+            // transformation 00,01,10,11 -> 0,1,3,2
+            return digital_pin_1_t::get_pin() * 2 + digital_pin_1_t::get_pin() ^ digital_pin_1_t::get_pin();
+        }
     };
 }
 
