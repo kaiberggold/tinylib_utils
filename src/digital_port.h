@@ -24,9 +24,9 @@ namespace utils
       hal::HalDigitalPort<addr_t, reg_t, port_idx>::reg_and(val);
     }
 
-    static void get_port(reg_t val)
+    static reg_t get_port()
     {
-      hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_reg(val);
+      hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_reg();
     }
     static void set_to_out_mask(reg_t val)
     {

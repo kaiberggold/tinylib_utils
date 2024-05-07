@@ -47,7 +47,7 @@ namespace utils
 
         static reg_t get_pin()
         {
-            return (hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_reg() >> pin_idx) & 1;
+            return (hal::HalDigitalPort<addr_t, reg_t, port_idx>::get_port() >> pin_idx) & 1;
         }
     };
 
