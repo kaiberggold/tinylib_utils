@@ -13,7 +13,13 @@ namespace utils
 
     class RotaryEncoderStatic
     {
+
     public:
+        static constexpr std::array<std::int8_t, 16> lookup_table = {0, 0, 0, 0,
+                                                                     -1, 0, 0, 1,
+                                                                     0, 0, 0, 0,
+                                                                     1, 0, 0, -1};
+
         static void init()
         {
 
@@ -29,16 +35,12 @@ namespace utils
 
         static std::uint8_t get_raw_state()
         {
-            return digital_pin_1_t::get_pin() * 2 + digital_pin_2_t::get_pin();
+            return (digital_pin_1_t::get_pin() << 1) + digital_pin_2_t::get_pin();
             // return digital_pin_2_t::get_pin();
         }
 
-        static std::int8_t get_step(std::uint8_t old_state, std::uint8_t new_state)
+        inline static std::int8_t get_step(std::uint8_t old_state, std::uint8_t new_state)
         {
-            constexpr std::array<std::int8_t, 16> lookup_table = {0, 0, 0, 0,
-                                                                  -1, 0, 0, 1,
-                                                                  0, 0, 0, 0,
-                                                                  1, 0, 0, -1};
             return lookup_table[(old_state * 4) + new_state];
         }
     };
