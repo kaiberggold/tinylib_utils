@@ -6,27 +6,31 @@
 namespace utils
 {
 
-    template <typename addr_t, typename reg_t>
+    template <typename addr_t, typename pos_t>
 
     class RotaryEncoderVirtual
     {
     private:
-        reg_t _pos_min;
-        reg_t _pos_max;
-        reg_t _step;
-        reg_t _pos;
-        uint8_t _rot_state;
-        uint8_t _rot_state_mem;
-        CircularBuffer<std::uint8_t, 4> _state_buffer;
+        pos_t _pos_min;
+        pos_t _pos_max;
+        pos_t _step_size;
+        pos_t _pos;
 
     public:
-        RotaryEncoderVirtual(reg_t min, reg_t max, reg_t s, reg_t p) : _pos_min(min), _pos_max(max), _step(s), _pos(p)
+        RotaryEncoderVirtual(pos_t min, pos_t max, pos_t s, pos_t p) : _pos_min(min), _pos_max(max), _step_size(s), _pos(p)
         {
         }
 
-        void rot_state_change(std::uint8_t rot_state)
+        void step(std::int8_t step_val)
         {
-            _state_buffer.buffer_in(rot_state);
+            _pos += step_val * _step_size;
+            _pos = std::min(_pos, _pos_max);
+            _pos = std::max(_pos, _pos_min);
+        }
+
+        pos_t get_pos()
+        {
+            return _pos;
         }
     };
 }
